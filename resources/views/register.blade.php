@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title','Register')
 
 @section('container')
 <div class="contsiner mt-5">

@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title','Login')
 
 @section('style')
 
@@ -50,7 +51,7 @@
         <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" name="remember" value="1"> Remember me
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

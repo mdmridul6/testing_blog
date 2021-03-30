@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('css/blog.css') }}">
-
     @yield('style')
     <script src="{{ mix('js/app.js') }}"></script>
-    <title>Document</title>
+    <title>@yield('title')</title>
 </head>
 <body>
 
@@ -26,20 +25,26 @@
                         <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="">Features</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
                 </ul>
+                @guest()
                 <a href="{{ route('login') }}" class="navbar-text px-1">Login</a>
                 <a href="{{ route('register') }}" class="navbar-text px-1">Register</a>
-                <a href="#" class="navbar-text px-1">Profile</a>
+                @endguest
+                @auth()
+                <a href="{{route('profile',auth()->id())}}" class="navbar-text px-1">Profile</a>
+                <a href="{{route('logout')}}" class="navbar-text px-1">Logout</a>
+                @endauth
             </div>
         </nav>
     </div>
 
 <div class="container">
+    @includeWhen(Request::is('/'),'assets.jumbotron')
     @yield('container')
 </div>
 
