@@ -38,7 +38,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|unique:categories,title|max:255',
+            'title' => 'required|unique:categories,name|min:4',
         ]);
         $category=new Category();
         $category->name=$request->title;
@@ -66,7 +66,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+
+        $data=[];
+        $data['category']=Category::find($category->id);
+        return view('backend.category.editCategory',$data);
     }
 
     /**
@@ -78,8 +81,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|min:4',
+        ]);
+
+        $category=Category::find($category->id);
+        $category->name=$request->title;
+        $category->save();
+        session()->flash('success','Category update successfull');
+        return redirect()->route('category')->withInput();
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -89,6 +103,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Category::destroy($category->id);
+        session()->flash('success','Category Delete successfull');
+        return redirect()->route('category');
     }
 }

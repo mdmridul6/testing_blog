@@ -35,9 +35,17 @@ Route::get('/logout',[\App\Http\Controllers\Home::class,'logout'])->name('logout
         Route::get('/',[App\Http\Controllers\CategoryController::class,'index'])->name('category');
         Route::get('/create',[App\Http\Controllers\CategoryController::class,'create'])->name('categoryAdd');
         Route::post('/create',[App\Http\Controllers\CategoryController::class,'store'])->name('categoryAdd');
+        Route::get('/edit/{category}',[App\Http\Controllers\CategoryController::class,'edit'])->name('categoryEdit');
+        Route::post('/edit/{category}',[App\Http\Controllers\CategoryController::class,'update'])->name('categoryEdit');
+        Route::delete('/delete/{category}',[App\Http\Controllers\CategoryController::class,'destroy'])->name('categoryDelete');
     });
 
     Route::prefix('/post')->group(function (){
         Route::get('/',[App\Http\Controllers\PostsController::class,'index'])->name('post');
+        Route::get('/create',[App\Http\Controllers\PostsController::class,'create'])->name('postAdd');
+        Route::post('/create',[App\Http\Controllers\PostsController::class,'store'])->name('postAdd');
+        Route::post('/edit/{posts}',[App\Http\Controllers\PostsController::class,'edit'])->name('postEdit');
+        Route::post('/edit/{posts}',[App\Http\Controllers\PostsController::class,'update'])->name('postEdit');
+        Route::delete('/delete/{posts}',[App\Http\Controllers\PostsController::class,'destroy'])->name('postDelete');
     });
 });

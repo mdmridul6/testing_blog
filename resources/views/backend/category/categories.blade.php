@@ -3,11 +3,7 @@
 
 @section('container')
 
-    @if(session()->has('success'))
-        <div class="alert alert-success mt-4" role="alert">
-            {{session('success')}}
-        </div>
-    @endif
+
 
 
     <div class="card  mt-4">
@@ -28,6 +24,14 @@
                 <tr>
                     <td>{{$category->id}}</td>
                     <td>{{$category->name}}</td>
+                    <td class="d-flex justify-content-around">
+                        <a href="{{ route('categoryEdit', ['category'=>$category->id]) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('categoryDelete', ['category'=>$category->id]) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" name="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </table>

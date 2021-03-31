@@ -44,6 +44,7 @@
     </div>
 
 <div class="container">
+    @include('backend.alart.alarts')
     @includeWhen(Request::is('/'),'assets.jumbotron')
     @yield('container')
 </div>

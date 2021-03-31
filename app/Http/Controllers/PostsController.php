@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Posts;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -14,7 +17,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('backend.post.posts');
+        $data=[];
+        $data['posts']=Posts::with('Category')->paginate(10);
+        return view('backend.post.posts',$data);
     }
 
     /**
@@ -24,7 +29,9 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        $data=[];
+        $data['categories']=Category::all();
+        return view('backend.post.addPost',$data);
     }
 
     /**
@@ -35,7 +42,25 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'title' => 'required|min:4',
+            'description' => 'required|min:4',
+            'category' => 'required|integer',
+            'ststus' => 'required|boolean',
+        ]);
+
+        $post = new Posts();
+        $post->users_id=Auth::id();
+        $post->categories_id=$request->category;
+        $post->title=$request->title;
+        $post->desc=$request->description;
+        $post->photo="testing";
+        $post->status=$request->ststus;
+        $post->save();
+        $request->session()->flash('success', 'Posts add Successfuly');
+        return redirect()->route('post')->withInput();
+
     }
 
     /**
