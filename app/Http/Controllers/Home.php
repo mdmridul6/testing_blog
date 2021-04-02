@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posts;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,7 +13,9 @@ class Home extends Controller
 {
     public function index()
     {
-        return view('index');
+        $data=[];
+        $data['airticals']=Posts::with('author','Category')->paginate('20');
+        return view('index',$data);
     }
 
     public function login()

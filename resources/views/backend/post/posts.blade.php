@@ -24,9 +24,9 @@
                         <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->Category->name}}</td>
-                        <td>@if ($post->status == 1)  Active  @else  Deactive  @endif</td>
+                        <td>@if ($post->status == 0)  Active  @else  Deactive  @endif</td>
                         <td class="d-flex justify-content-around">
-                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('postEdit', ['posts'=>$post->id]) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('postDelete', ['posts'=>$post->id]) }}" method="post">
                                 @csrf
                                 @method('delete')

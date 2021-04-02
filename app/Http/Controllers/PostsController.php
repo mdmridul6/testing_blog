@@ -82,7 +82,10 @@ class PostsController extends Controller
      */
     public function edit(Posts $posts)
     {
-        //
+        $data=[];
+        $data['post']=Posts::find($posts->id);
+        $data['categories']=Category::all();
+        return view('backend.post.editpost',$data);
     }
 
     /**
@@ -94,7 +97,23 @@ class PostsController extends Controller
      */
     public function update(Request $request, Posts $posts)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|min:4',
+            'description' => 'required|min:4',
+            'category' => 'required|integer',
+            'ststus' => 'required|boolean',
+        ]);
+
+        $post = Posts::find($posts->id);
+        $post->users_id=Auth::id();
+        $post->categories_id=$request->category;
+        $post->title=$request->title;
+        $post->desc=$request->description;
+        $post->photo="testing";
+        $post->status=$request->ststus;
+        $post->save();
+        $request->session()->flash('success', 'Posts Update Successfuly');
+        return redirect()->route('post')->withInput();
     }
 
     /**

@@ -44,7 +44,7 @@ Route::get('/logout',[\App\Http\Controllers\Home::class,'logout'])->name('logout
         Route::get('/',[App\Http\Controllers\PostsController::class,'index'])->name('post');
         Route::get('/create',[App\Http\Controllers\PostsController::class,'create'])->name('postAdd');
         Route::post('/create',[App\Http\Controllers\PostsController::class,'store'])->name('postAdd');
-        Route::post('/edit/{posts}',[App\Http\Controllers\PostsController::class,'edit'])->name('postEdit');
+        Route::get('/edit/{posts}',[App\Http\Controllers\PostsController::class,'edit'])->name('postEdit');
         Route::post('/edit/{posts}',[App\Http\Controllers\PostsController::class,'update'])->name('postEdit');
         Route::delete('/delete/{posts}',[App\Http\Controllers\PostsController::class,'destroy'])->name('postDelete');
     });
