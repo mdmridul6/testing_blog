@@ -15,6 +15,7 @@ class Home extends Controller
     {
         $data=[];
         $data['airticals']=Posts::with('author','Category')->paginate('20');
+        $data['tops']=Posts::with('author','Category')->take(2)->inRandomOrder()->get();
         return view('index',$data);
     }
 

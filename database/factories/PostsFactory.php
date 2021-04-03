@@ -22,7 +22,12 @@ class PostsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'users_id'=>"1",
+            'categories_id'=>"1",
+            'title'=>$this->faker->sentence(),
+            'desc'=>$this->faker->paragraph(),
+            'photo'=>$this->faker->imageUrl(),
+            'status'=>random_int(0,1),
         ];
     }
 }

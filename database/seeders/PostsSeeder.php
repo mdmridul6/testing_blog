@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Posts;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class PostsSeeder extends Seeder
@@ -13,6 +15,6 @@ class PostsSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Posts::factory()->count(100)->create();
     }
 }
